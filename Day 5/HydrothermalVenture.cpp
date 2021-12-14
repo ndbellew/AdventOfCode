@@ -85,9 +85,28 @@ int main(int argc, char const * argv[]){
                 AllPoints.push_back(to_string(i)+","+to_string(y1));
             }
         }
-        // Y/Y and X/X are not the same, nothing happens. 
+        // Y/Y and X/X are not the same, Math happens. 
         else{
+            /*
+                calculating all points between two coordinates, bets way to do it is to use a line and calculate each point from x1 to x2. using y1 and y2 to calculate the slope. 
+                I will use the Formula Y = (C - Ax)/B where A = Y2 - Y1, B = X1-X2, and C = Ax1 + By1. 
+            */
+            GetLowHigh(x1,x2, high, low); // Using X as the delimiter as you would in any graphing scenario. if the equation is right then Both Y's should be accounted for. 
+            int A, B, C, X, Y;
+            A = y2-y1;
+            B = x1-x2;
+            C = A*x1 + B*y1;
+            // Loop through each X from X1 (low) to X2 (high)
+            for (X = low; X<=high;X++){
+                Y = (C - A*X)/B;
+                // Great with Y and X its time to add it to the list. 
+                if (std::count(AllPoints.begin(), AllPoints.end(), (to_string(X)+","+to_string(Y)))==1)
+                Counter++;
+                // if the Point is part of AllPoints then Counter increments. 
+                AllPoints.push_back(to_string(X)+","+to_string(Y));
+            }
 
+        
         }
     }
     // Print Counter which is the answer. 
