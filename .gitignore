@@ -1,12 +1,4 @@
-Day1/subtext.txt
-Day2/Text.txt
-Day3/Text.txt
-Day 5/Run.exe
-Day 5/HydrothermalVenture.cpp
 .vscode/settings.json
-Day 5/Run.exe
-Day 6/Run.exe
-Day 6/Run.exe.stackdump
-Day 6/input.txt
-*/Run.exe
-Day7/input.txt
+*/*.txt
+*/*.exe
+*/*.exe.*
