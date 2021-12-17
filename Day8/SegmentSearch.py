@@ -49,9 +49,6 @@ class Submarine_Number:
         else:
             self.Num = str(self.GetNum())
 
-        
-
-
 def main():
     Segments = getSegments()
     print(f"Answer to Part 1 {PartOne(Segments)}")
@@ -147,8 +144,6 @@ def StringinString(Larger, Smaller):
 
 def DiffStrings(Larger, Smaller):
     return list((Counter(list(Larger))-Counter(list(Smaller))).elements())
-
-
 
 if __name__ == "__main__":
     main()
