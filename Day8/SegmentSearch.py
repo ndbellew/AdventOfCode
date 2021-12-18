@@ -1,6 +1,5 @@
 from pprint import pprint
 from collections import Counter
-import re 
 
 class Submarine_Number:
 
@@ -54,8 +53,6 @@ def main():
     print(f"Answer to Part 1 {PartOne(Segments)}")
     print(f"Answer to part 2: \n{PartTwo(Segments)}")
     
-    
-
 def getSegments():
     ListOfSegments = list()
     with open(f"input.txt", 'r') as file:
@@ -99,7 +96,6 @@ def PartTwo(Segments):
             elif len(Pattern) == 7:
                 Eight = "".join(sorted(Pattern))
         # Now to solve for 0,6,9 which i think is the easiest.
-
         for numPattern in SixLength:
             if StringinString(numPattern, Four):
                 Nine = numPattern
@@ -107,7 +103,6 @@ def PartTwo(Segments):
                 Zero = numPattern
             else:
                 Six = numPattern
-
         # This should give me 0,6, and 9 I hope. now i can use 0,6, and 9 to find the remaining numbers.
         # Time to look for 2,3,or 5
         for numPattern in FiveLength:
@@ -117,7 +112,6 @@ def PartTwo(Segments):
                 Five = numPattern
             else:
                 Two = numPattern
-
         # now to build the structure by finding Top, HL, HR, Mid, LL, LR, Bot
         Top = DiffStrings(Seven, One)[0] #expecting a single response. 
         HL = DiffStrings(Nine, Three)[0] 
