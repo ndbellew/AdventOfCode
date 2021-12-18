@@ -1,8 +1,9 @@
-Day1/subtext.txt
-Day2/Text.txt
-Day3/Text.txt
-Day 5/Run.exe
-Day 5/HydrothermalVenture.cpp
 .vscode/settings.json
+<<<<<<< HEAD
 Day 5/Run.exe
 */input.txt
+=======
+*/*.txt
+*/*.exe
+*/*.exe.*
+>>>>>>> 1dc14a5792a81a61abbde10246831440acc13039
