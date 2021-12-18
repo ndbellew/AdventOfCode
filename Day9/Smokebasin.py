@@ -2,26 +2,41 @@ from pprint import pprint
 
 def main():
     SmokeInfo = getData()
-    print(f"Part One Answer: {PartOne(SmokeInfo)}")
+    print(f"Part One Answer: {FindTubes(SmokeInfo)}")
 
 
-def PartOne(SmokeInfo):
-    Nums = list()
-    corners = 0
+def FindTubes(SmokeInfo):
+    # Part two involves the same as Part one except
+    # expanding beyond the small basin by checking to see if numbers around
+    # the current number are exactly 1 higher. You have to check through Each of these 
+    # new numbers.
+
     for y in range(len(SmokeInfo)):
         for x in range(len(SmokeInfo[y])):
             CurrNum = SmokeInfo[y][x]
-            if isEdge( SmokeInfo,x,y):
-                if isCorner(SmokeInfo, x,y):
-                    Nums = Corner(SmokeInfo,x,y,Nums)
-                    corners+=1
-                else:
-                    Nums = Edge(SmokeInfo, x, y, Nums)
-            else:
-                if SmokeInfo[y-1][x] > CurrNum and SmokeInfo[y][x+1] > CurrNum and SmokeInfo[y+1][x] > CurrNum and SmokeInfo[y][x-1] > CurrNum:
-                    Nums.append(CurrNum)
-    return sum(Nums)+(len(Nums)*1)# *1 is for risk level
+            
+            # if isEdge( SmokeInfo,x,y):
+            #     if isCorner(SmokeInfo, x,y):
+            #         Nums = Corner(SmokeInfo,x,y,Nums)
+                    
+            #     else:
+            #         Nums = Edge(SmokeInfo, x, y, Nums)
+            # else:
+            #     if SmokeInfo[y-1][x] > CurrNum and SmokeInfo[y][x+1] > CurrNum and SmokeInfo[y+1][x] > CurrNum and SmokeInfo[y][x-1] > CurrNum:
+            #         Nums.append(CurrNum)
+    #return sum(Nums)+(len(Nums)*1)# *1 is for risk level
 
+def FindCaveSystem(SmokeInfo,x,y, Caves, CurrNum):
+    Nums = list()
+    change = False
+    if isEdge( SmokeInfo,x,y):
+        if isCorner(SmokeInfo, x,y):
+            Nums = Corner(SmokeInfo,x,y,Nums)
+        else:
+            Nums = Edge(SmokeInfo, x, y, Nums)
+    else:
+        if SmokeInfo[y-1][x] > CurrNum and SmokeInfo[y][x+1] > CurrNum and SmokeInfo[y+1][x] > CurrNum and SmokeInfo[y][x-1] > CurrNum:
+            Nums.append(CurrNum)
 
 def isEdge(Tunnelist,x,y):
     XlengthMax = len(Tunnelist[0])-1# Min is 0

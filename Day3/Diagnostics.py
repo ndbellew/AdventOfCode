@@ -1,4 +1,4 @@
-hostFolder = "/home/ndbellew/AdventOfCode/2021/Day3/"
+
 
 
 def Counter(BinaryNum):
@@ -17,7 +17,7 @@ def Counter(BinaryNum):
 def main():
     BinaryDiagnostics = list()
     ans=""
-    with open(f"{hostFolder}Text.txt", 'r') as file:
+    with open(f"Text.txt", 'r') as file:
         for index, num in enumerate(file):
             if index==0:
                 BinaryDiagnostics = list(num)

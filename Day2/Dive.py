@@ -1,12 +1,10 @@
 
 
-hostFolder = "/home/ndbellew/AdventOfCode/2021/Day2/"
-
 def main():
     Horiz = 0
     Depth = 0
     Aim = 0
-    with open(f"{hostFolder}Text.txt", 'r') as file:
+    with open(f"Text.txt", 'r') as file:
         for index, directions in enumerate(file):
             direction, movement = directions.split()
             if direction=="forward":
