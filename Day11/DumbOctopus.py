@@ -1,4 +1,8 @@
 """
+    Day 11 Advent of Code:
+    P1 Goal is to count the octopi that are lying at the bottom of some cavern. They flash every few steps and flashing sets off other octopi.
+    P2 See when all octopi have flashed at the same time. it is the same as p1 but you go for longer than 100 steps. 
+    The Code contains some added functions like PrintGraph, which is just used in the testing process. 
     Step 1: Increment all Octopi
     Step 2: Check for flash and increment surrounding flash.
     Step 3: Count all Flashes and Restore flashed Octopi to 0.
@@ -16,7 +20,7 @@ def PartTwo(OctoGraph):
     for Round in range(500): # A guess
         OctoGraph = IncrementOctopi(OctoGraph)
         OctoGraph, Flashes = CountFlashes(OctoGraph, Flashes)
-        PrintGraph(OctoGraph, f"Graph number: {Round+1}")
+        #PrintGraph(OctoGraph, f"Graph number: {Round+1}")
         if Flashes < 0:
             return Round+1
     return f"No Sync after {Round+1} Rounds"
@@ -26,7 +30,7 @@ def PartOne(OctoGraph):
     for i in range(100):
         OctoGraph = IncrementOctopi(OctoGraph)
         OctoGraph, Flashes = CountFlashes(OctoGraph, Flashes)
-        PrintGraph(OctoGraph, f"Graph number: {i+1}")
+        #PrintGraph(OctoGraph, f"Graph number: {i+1}")
     return Flashes
 
 def getdata():
