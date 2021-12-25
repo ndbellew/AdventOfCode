@@ -18,6 +18,5 @@ def main():
                 quit(0)
     print(f"{Horiz=}\n{Depth=}\nans={Horiz*Depth}")
 
-
 if __name__=="__main__":
     main()

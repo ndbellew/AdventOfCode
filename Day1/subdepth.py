@@ -14,10 +14,10 @@ def main():
         for index, subdepth in enumerate(file):
             subdepths.append(int(subdepth))
     # for P2 Create a new list of Depths that are the sums of three depths in the weird order described.
-    Depths = setDepths(subdepths)
+    print(f"Day 1: {evaluateDepths(subdepths)}")
+    print(f"Day 2: {evaluateDepths(setDepths(subdepths))}")
     # For P1 just send the list into evaluate Depths and get the answer.
-    print(evaluateDepths(Depths))
-
+    
 def evaluateDepths(Depths):
     ans = 0
     # ans will increment if the current depth is higher than the previous. 
