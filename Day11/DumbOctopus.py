@@ -56,7 +56,8 @@ def CountFlashes(OctoGraph, Flashes):
             # Count Flashes
             Flashed = True
             x,y = Octo
-            SurroundingCoords = [(x-1, y-1), (x, y-1), (x+1, y-1), (x-1, y), (x-1, y+1), (x+1, y), (x+1, y+1), (x, y+1)]
+            SurroundingCoords = [(x-1, y-1), (x, y-1), (x+1, y-1), (x-1, y),
+                                (x-1, y+1), (x+1, y), (x+1, y+1), (x, y+1)]
             for Coord in SurroundingCoords:
                 if Coord in OctoGraph:
                     OctoGraph[Coord] += 1
