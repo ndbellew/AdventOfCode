@@ -1,13 +1,15 @@
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 with Ada.Strings.Fixed;
+with Ada.Containers; use Ada.Containers;
+with Ada.Containers.Vectors;
 
 package body NiceString is
    procedure IsThreeVowel(NW : in out NiceWord; nString : in Unbounded_String)
    is
       A,E,II,O,U   : Boolean   := False;
-      Counter     : Integer   := 0;
-      currChar    : Character;
+      Counter      : Integer   := 0;
+      currChar     : Character;
    begin
       for I in 1 .. Length (nString) loop
          CurrChar := Element (NString, I);
@@ -88,5 +90,64 @@ package body NiceString is
       end if;
 
    end HasBaddies;
+
+   procedure ContainsPairs(NW : in out NiceWord; nString : in Unbounded_String)
+   is
+      subtype Tester is String(1..2);
+      
+      package String_Vector is new
+        Ada.Containers.Vectors
+          (Index_Type   => Natural,
+           Element_Type => Tester);
+      
+      Letter_Vector   : String_Vector.Vector;
+      LetterPosition1 : Character := '+';
+      LetterPosition2 : Character := '+';
+      Test            : Tester;
+      Fail            : Boolean := True;
+   begin
+      for Letter in 1 .. Length (NString) loop
+         if LetterPosition1 = '+' then
+            LetterPosition1 := Element(NString, Letter);
+         elsif LetterPosition2 = '+' then
+            LetterPosition2 := Element(NString, Letter);
+            Test := LetterPosition1 & LetterPosition2;
+            if (Letter_Vector.Length > 0  and Fail) then
+               for I in Letter_Vector.First_Index .. Letter_Vector.Last_Index loop
+                  if Letter_Vector(I) = Test then
+                     Fail := False;
+                  end if;
+               end loop;
+               if Fail then
+                  Letter_Vector.Append(Test);
+                  LetterPosition1 := LetterPosition2;
+                  LetterPosition2 := '+';
+                  Test := "++";
+               else
+                  NW.AppearsTwice := True;
+                  exit;
+               end if;
+            else
+               Letter_Vector.Append(Test);
+               LetterPosition1 := LetterPosition2;
+               LetterPosition2 := '+';
+            end if;
+            
+         end if;
+
+      end loop;
+   end ContainsPairs;
+
+   procedure RepeatedLetter(NW : in out NiceWord; nString : in Unbounded_String)
+   is
+      type Tester is new String(1 .. 3);
+      package Letter_Vector is new
+        Ada.Containers.Vectors
+          (Index_Type   => Natural,
+           Element_Type => Tester);
+   begin
+      Put_Line("Nothing");
+   end RepeatedLetter;
+
 
 end NiceString;
