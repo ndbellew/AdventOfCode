@@ -10,18 +10,18 @@ procedure Main is
    type NiceWords is new NiceString.NiceWord;
 
    InputFile             : File_Type;
-   FileName              : String  := "C:\GNAT\2021\bin\textfiles\problem5.txt";
+   FileName              : String  := "C:\cygwin64\home\e399514\Ada\AdventOfCode\AdventOfCode2015\textfiles\problem5_test.txt";
    NumOfNices, Pass      : Integer := 0;
    A                     : Unbounded_String;
    procedure ProcessWords(Word : Unbounded_String; NiceCounter : in out Integer)
    is
       Words : NiceWords;
    begin
-      IsThreeVowel (NW => Words, NString => A );
-      IsTwoLetter  (NW => Words, NString => A );
-      HasBaddies   (NW => Words, NString => A );
-      if Words.ThreeVowel and Words.TwoLetter and Words.NoBaddies then
-         Put_Line(To_String(A) & " is a nice word!");
+      IsThreeVowel   (NW => Words, NString => Word );
+      ContainsPairs  (NW => Words, NString => Word );
+      HasBaddies     (NW => Words, NString => Word );
+      if Words.AppearsTwice then
+         Put_Line(To_String(Word) & " is a nice word!");
          NiceCounter := NiceCounter + 1;
       else
          --Put_Line(To_String(A) & " is a naughty word!");
