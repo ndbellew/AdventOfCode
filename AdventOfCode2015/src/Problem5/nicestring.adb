@@ -4,6 +4,8 @@ with Ada.Strings.Fixed;
 with Ada.Containers; use Ada.Containers;
 with Ada.Containers.Vectors;
 
+-- Used for Part 1
+
 package body NiceString is
    procedure IsThreeVowel(NW : in out NiceWord; nString : in Unbounded_String)
    is
@@ -88,31 +90,41 @@ package body NiceString is
       if not IsBad then
          NW.NoBaddies := True;
       end if;
-
    end HasBaddies;
 
+   -- Used for Part 2
+   
    procedure ContainsPairs(NW : in out NiceWord; nString : in Unbounded_String)
    is
       subtype Tester is String(1..2);
-      
       package String_Vector is new
         Ada.Containers.Vectors
           (Index_Type   => Natural,
            Element_Type => Tester);
       
       Letter_Vector   : String_Vector.Vector;
-      LetterPosition1 : Character := '+';
-      LetterPosition2 : Character := '+';
-      Test            : Tester;
-      Fail            : Boolean := True;
+      Left            : Character := '+';
+      Right           : Character := '+';
+      Test            : Tester    := "++";
+      Fail            : Boolean   := True;
+      Overlap         : Boolean   := False;
    begin
       for Letter in 1 .. Length (NString) loop
-         if LetterPosition1 = '+' then
-            LetterPosition1 := Element(NString, Letter);
-         elsif LetterPosition2 = '+' then
-            LetterPosition2 := Element(NString, Letter);
-            Test := LetterPosition1 & LetterPosition2;
-            if (Letter_Vector.Length > 0  and Fail) then
+         if Left = '+' then
+            Left := Element(NString, Letter);
+         elsif Right = '+' then
+            Right := Element(NString, Letter);
+            if (Left & Right) = Test then
+               if Overlap then
+                  Test    := Left & Right;
+                  Overlap := False;
+               else
+                  Overlap := True;
+               end if;
+            else
+               Test := Left & Right;
+            end if;
+            if (Letter_Vector.Length > 0  and Fail) and (not Overlap) then
                for I in Letter_Vector.First_Index .. Letter_Vector.Last_Index loop
                   if Letter_Vector(I) = Test then
                      Fail := False;
@@ -120,33 +132,52 @@ package body NiceString is
                end loop;
                if Fail then
                   Letter_Vector.Append(Test);
-                  LetterPosition1 := LetterPosition2;
-                  LetterPosition2 := '+';
-                  Test := "++";
+                  Left := Right;
+                  Right := '+';
                else
                   NW.AppearsTwice := True;
                   exit;
                end if;
             else
                Letter_Vector.Append(Test);
-               LetterPosition1 := LetterPosition2;
-               LetterPosition2 := '+';
+               Left := Right;
+               Right := '+';
             end if;
-            
          end if;
-
       end loop;
    end ContainsPairs;
 
    procedure RepeatedLetter(NW : in out NiceWord; nString : in Unbounded_String)
    is
-      type Tester is new String(1 .. 3);
-      package Letter_Vector is new
-        Ada.Containers.Vectors
-          (Index_Type   => Natural,
-           Element_Type => Tester);
+      subtype Tester is String(1 .. 3);
+
+      Left            : Character := '+';
+      Right           : Character := '+';
+      Middle          : Character := '+';
+      Test            : Tester;
+      Fail            : Boolean := True;
    begin
-      Put_Line("Nothing");
+      for Letter in 1 .. Length (NString) loop
+         if Left = '+' then
+            Left   :=  Element(NString, Letter);
+         elsif Middle = '+' then
+            Middle :=  Element(NString, Letter);
+         elsif Right = '+' then
+            Right  :=  Element(NString, Letter);
+            Test   :=  Left & Middle & Right;
+            if Left = Right and Fail then
+               NW.LetterWrap := True;
+               Fail := False;
+               exit;                 
+            elsif Fail then
+                  Left   := Middle;
+                  Middle := Right;
+                  Right  := '+';
+                  Test   := "+++";
+            end if;
+
+         end if;
+      end loop;
    end RepeatedLetter;
 
 
